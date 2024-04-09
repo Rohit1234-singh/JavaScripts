@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    #taskDetails {
+        display: none;
+        width: 100%;
+        height: 100px;
+    }
+</style>
+</head>
+<body>
+
+<h2>To-Do List</h2>
+
+<input type="text" id="taskInput" placeholder="Enter task">
+<button onclick="addTask()">Add Task</button>
+
+<table id="taskTable">
+    <thead>
+        <tr>
+            <th>Task</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Task rows will be added here -->
+    </tbody>
+</table>
+
+<textarea id="taskDetails" readonly></textarea>
+
+<script>
+    function addTask() {
+        var taskInput = document.getElementById("taskInput").value;
+        if (taskInput.trim() === "") {
+            alert("Please enter a task.");
+            return;
+        }
+        
+        var table = document.getElementById("taskTable").getElementsByTagName('tbody')[0];
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = taskInput;
+        cell2.innerHTML = "<button onclick='showDetails(this)'>View Details</button>";
+        
+        document.getElementById("taskInput").value = "";
+    }
+
+    function showDetails(button) {
+        var task = button.parentNode.parentNode.cells[0].innerHTML;
+        var details = "Details for Task: " + task;
+        document.getElementById("taskDetails").value = details;
+        document.getElementById("taskDetails").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
